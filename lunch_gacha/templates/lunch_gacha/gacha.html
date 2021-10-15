@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ガチャ{% endblock %}
+{% block meta %}
+<link href="{% static 'css/checkbox.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="py-4 container text-center">
+  <div class="col-lg-8 offset-lg-2">
+    <legend class="title">
+      <h2>本郷ランチガチャ</h2>
+    </legend>
+    <br>
+    <form class="" method="post">
+      {% csrf_token %}
+      <div class="text-center">
+        <button type="submit" class="btn-lg btn btn-primary">
+          ガチャを引く
+        </button>
+      </div>
+      <hr>
+      <fieldset>
+        <div class="card">
+          <div class="card-header">
+            地区を絞る
+          </div>
+          <div class="card-body">
+            <p>※選択しない場合は全候補からピックアップします</p>
+            {{ form.district }}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            ジャンルを絞る
+          </div>
+          <div class="card-body">
+            <p>※選択しない場合は全候補からピックアップします</p>
+            {{ form.genre }}
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <hr>
+    <p><a href="/admin/">管理者サイトはこちら</a></p>
+  </div>
+</div>
+{% endblock %}

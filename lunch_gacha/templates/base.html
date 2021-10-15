@@ -1,0 +1,29 @@
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% include 'meta.html' %}
+    <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %} 本郷ランチ</title>
+    {% block meta %}{% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      {% if messages %}
+        <br>
+        <ul class="messages">
+          {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+              {{ message|safe }}
+            </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ガチャ結果{% endblock %}
+{% block meta %}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endblock %}
+{% block content %}
+<div class="py-4 container text-center">
+  <div class="col-lg-8 offset-lg-2">
+    <legend class="title">
+      <h2>本郷ランチガチャ</h2>
+    </legend>
+    <br>
+    <div class="col-md-6 offset-md-3 card card-body text-center">
+      <h4 class="card-title">今日のランチ</h4>
+      {% if LunchPlace %}
+        <p class="card-text">{{ LunchPlace }}</p>
+        <div>
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-show-count="false" data-text="今日のランチは「{{ LunchPlace }}」！" data-url="{{ request.build_absolute_uri }}" data-hashtags="本郷ランチガチャ">Tweet</a>
+        </div>
+      {% else %}
+        <p class="card-text">不明なエラー</p>
+      {% endif %}
+    </div>
+    <br>
+    <a role="button" href="{% url 'lunch_gacha:gacha' %}" class="btn btn-secondary">もう一度引く</a>
+  </div>
+</div>
+{% endblock %}
