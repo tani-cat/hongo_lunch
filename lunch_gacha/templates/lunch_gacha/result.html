@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}ガチャ結果{% endblock %}
-{% block meta %}
+{% block meta_js %}
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
 {% block content %}
 <div class="py-4 container text-center">
-  <div class="col-lg-8 offset-lg-2">
+  <div class="col-lg-6 offset-lg-6 col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-xs-12">
     <legend class="title">
       <h2>本郷ランチガチャ</h2>
     </legend>
     <br>
-    <div class="col-md-6 offset-md-3 card card-body text-center">
+    <div class="col-12 card card-body text-center">
       <h4 class="card-title">今日のランチ</h4>
       {% if LunchPlace %}
         <p class="card-text">{{ LunchPlace }}</p>

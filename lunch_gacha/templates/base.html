@@ -1,15 +1,12 @@
 {% load static %}
-{% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 {{ form.media }}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    {% include 'meta.html' %}
     <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %} 本郷ランチ</title>
-    {% block meta %}{% endblock %}
+    {% include 'meta_css.html' %}
+    {% block meta_css %}{% endblock %}
   </head>
   <body>
     <div class="container">
@@ -25,5 +22,9 @@
       {% endif %}
     </div>
     {% block content %}{% endblock %}
+    <div id="scripts">
+      {% include 'meta_js.html' %}
+      {% block meta_js %}{% endblock %}
+    </div>
   </body>
 </html>
