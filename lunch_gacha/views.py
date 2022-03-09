@@ -1,12 +1,48 @@
+import json
 import random
+import traceback
 
-from django.views.decorators.csrf import requires_csrf_token
+import requests
+
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
+from django.views.decorators.csrf import requires_csrf_token
 
 from . import forms, models
+
+
+@requires_csrf_token
+def notice_slack_handler500(request, *args, **kwargs):
+    """本番環境の500エラーをSlack通知するハンドラ
+
+    """
+    _data = {
+        'attachments': [
+            {
+                'color': '#ff4444',
+                'author_name': '500 Error has thrown',
+                'fields': [
+                    {
+                        'title': 'Request URI',
+                        'value': request.build_absolute_uri(),
+                        'short': False,
+                    },
+                    {
+                        'title': 'Traceback',
+                        'value': traceback.format_exc(),
+                        'short': False,
+                    },
+                ],
+            }
+        ]
+    }
+    _url = getattr(settings, 'ERROR_WEBHOOK_URL', None)
+    if _url is not None:
+        requests.post(_url, data=json.dumps(_data))
+    return HttpResponseServerError('<html><body><h1>Server Error(500)</h1></body></html>')
 
 
 @requires_csrf_token
