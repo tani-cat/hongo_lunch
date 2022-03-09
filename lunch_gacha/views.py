@@ -134,3 +134,20 @@ class GachaResultView(generic.TemplateView):
             return redirect('lunch_gacha:gacha')
 
         return render(request, self.template_name, context)
+
+
+class GachaListView(generic.ListView):
+    """ガチャの出力結果一覧画面
+
+    """
+
+    model = models.LunchPlace
+    template_name = 'lunch_gacha/list.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_valid=True)
+        queryset = queryset.select_related('district')
+        queryset = queryset.prefetch_related('genre')
+        queryset = queryset.order_by('district', 'name')
+        return queryset
