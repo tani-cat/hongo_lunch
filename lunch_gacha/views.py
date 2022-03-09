@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse
 from django.views import generic
 from django.views.decorators.csrf import requires_csrf_token
 
@@ -122,17 +123,18 @@ class GachaResultView(generic.TemplateView):
 
         context.update({
             'LunchPlace': get_object_or_404(models.LunchPlace, pk=_answer),
+            'invite_link': self.request._current_scheme_host + reverse('lunch_gacha:gacha'),
         })
 
         return context
 
     def get(self, request, **kwargs):
-        context = self.get_context_data(**kwargs)
-        if context['LunchPlace'] is None:
+        if 'answer' not in self.request.session:
             # ガチャ結果がない場合はガチャ画面に遷移
             messages.error(request, 'まずはガチャを引いてください')
             return redirect('lunch_gacha:gacha')
 
+        context = self.get_context_data(**kwargs)
         return render(request, self.template_name, context)
 
 
