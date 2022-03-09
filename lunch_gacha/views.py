@@ -11,6 +11,9 @@ from . import forms, models
 
 @requires_csrf_token
 def custom_handler500(request, *args, **kwargs):
+    """本場環境で不具合チェックするためのハンドラ
+
+    """
     import sys
     from django.views import debug
     error_html = debug.technical_500_response(request, *sys.exc_info()).content
@@ -18,6 +21,10 @@ def custom_handler500(request, *args, **kwargs):
 
 
 class GachaView(generic.FormView):
+    """ガチャ実行画面
+
+    """
+
     template_name = 'lunch_gacha/gacha.html'
     form_class = forms.GachaForm
 
@@ -64,6 +71,10 @@ class GachaView(generic.FormView):
 
 
 class GachaResultView(generic.TemplateView):
+    """ガチャ結果画面
+
+    """
+
     template_name = 'lunch_gacha/result.html'
 
     def get_context_data(self, **kwargs):
