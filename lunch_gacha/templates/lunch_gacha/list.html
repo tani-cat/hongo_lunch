@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load gacha_tag %}
+{% load static %}
+{% block title %}出力一覧{% endblock %}
+{% block content %}
+<div class="py-4 container">
+  <h2 class="text-center">出力一覧</h2>
+  <p class="text-center"><a href="{% url 'lunch_gacha:gacha' %}">ガチャ画面へ戻る</a></p>
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <table class="table table-sm table-striped text-center">
+        <thead>
+          <tr>
+            <td>地区</td>
+            <td>店名</td>
+            <td>ジャンル(複数)</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in object_list %}
+            <tr>
+              <td>{{ obj.district }}</td>
+              <td>{{ obj.name }}</td>
+              <td>{{ obj.genre|list_all }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="text-center"><a href="{% url 'lunch_gacha:gacha' %}">ガチャ画面へ戻る</a></p>
+</div>
+{% endblock %}

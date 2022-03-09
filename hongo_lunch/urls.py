@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 
-# Error Handler: DEBUG=False環境でのエラーを再現する用
-# handler500 = 'lunch_gacha.views.custom_handler500'
+# Error Handler
+handler500 = 'lunch_gacha.views.notice_slack_handler500'
 
 
 urlpatterns = [
