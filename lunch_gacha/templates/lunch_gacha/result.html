@@ -16,7 +16,7 @@
       {% if LunchPlace %}
         <p class="card-text">{{ LunchPlace }}</p>
         <div>
-          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-show-count="false" data-text="今日のランチは「{{ LunchPlace }}」！" data-url="{{ request.build_absolute_uri }}" data-hashtags="本郷ランチガチャ">Tweet</a>
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-show-count="false" data-text="今日のランチは「{{ LunchPlace }}」！" data-url="{{ invite_link }}" data-hashtags="本郷ランチガチャ">Tweet</a>
         </div>
       {% else %}
         <p class="card-text">不明なエラー</p>
