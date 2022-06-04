@@ -58,6 +58,19 @@ class DistrictAdmin(BaseAdmin):
     readonly_fields = ('id',)
 
 
+@admin.register(models.StoreType)
+class StoreTypeAdmin(BaseAdmin):
+    # list
+    list_display = ('id', 'name')
+    list_display_links = ('id', 'name')
+    search_fields = ('name', 'description')
+    # detail
+    fields = [
+        'id', 'name', 'description',
+    ]
+    readonly_fields = ('id',)
+
+
 @admin.register(models.LunchGenre)
 class LunchGenreAdmin(BaseAdmin):
     # list
@@ -74,14 +87,14 @@ class LunchGenreAdmin(BaseAdmin):
 @admin.register(models.LunchPlace)
 class LunchPlaceAdmin(BaseAdmin):
     # list
-    list_display = ('id', 'name', 'district', 'is_valid')
+    list_display = ('id', 'name', 'district', 'store_type', 'is_valid', 'has_eatin', 'has_takeout')
     list_display_links = ('id', 'name')
-    list_filter = ('is_valid', 'genre')
-    search_fields = ('name', 'district')
+    list_filter = ('is_valid', 'genre', 'store_type')
+    search_fields = ('name',)
     ordering = ('id',)
     # detail
     fields = [
-        'id', 'name', 'district', 'is_valid',
+        'id', 'name', 'district', 'store_type', 'is_valid', 'has_eatin', 'has_takeout',
     ]
     inlines = (
         LunchGenreInlineAdmin,
