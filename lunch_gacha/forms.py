@@ -20,10 +20,6 @@ class GachaForm(forms.Form):
     """ガチャを引くフォーム
 
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for myField in self.fields:
-            self.fields[myField].widget.attrs['class'] = 'custom-checkbox'
 
     district = forms.ModelMultipleChoiceField(
         label='地区',
@@ -31,6 +27,19 @@ class GachaForm(forms.Form):
             Count('lunchplace')).filter(lunchplace__count__gte=1),
         widget=CustomCheckboxSelectMultiple,
         required=False,
+    )
+
+    SALE_STYLE_CHOICES = (
+        ('has_eatin', 'イートイン'),
+        ('has_takeout', 'テイクアウト'),
+    )
+
+    sale_style = forms.MultipleChoiceField(
+        label='販売形式',
+        choices=SALE_STYLE_CHOICES,
+        widget=CustomCheckboxSelectMultiple,
+        required=True,
+        initial=('has_eatin', 'has_takeout'),
     )
 
     genre = forms.ModelMultipleChoiceField(

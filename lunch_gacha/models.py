@@ -100,6 +100,23 @@ class District(models.Model):
     """
     name = models.CharField(unique=True, max_length=31, verbose_name='地区名称')
 
+    class Meta:
+        verbose_name = verbose_name_plural = '店舗地区'
+
+    def __str__(self):
+        return self.name
+
+
+class StoreType(models.Model):
+    """店舗形態
+
+    """
+    name = models.CharField(unique=True, max_length=15, verbose_name='形態名称')
+    description = models.TextField(max_length=200, null=True, blank=True, verbose_name='説明')
+
+    class Meta:
+        verbose_name = verbose_name_plural = '店舗形態'
+
     def __str__(self):
         return self.name
 
@@ -109,6 +126,9 @@ class LunchGenre(models.Model):
 
     """
     name = models.CharField(unique=True, max_length=15, verbose_name='ジャンル名称')
+
+    class Meta:
+        verbose_name = verbose_name_plural = '食事ジャンル'
 
     def __str__(self):
         return self.name
@@ -120,13 +140,19 @@ class LunchPlace(models.Model):
     """
     name = models.CharField(unique=True, max_length=63, verbose_name='店舗名')
     district = models.ForeignKey(District, on_delete=models.PROTECT, verbose_name='地区')
+    store_type = models.ForeignKey(StoreType, on_delete=models.PROTECT, verbose_name='店舗形態')
     genre = models.ManyToManyField(LunchGenre, verbose_name='ジャンル')
+    has_eatin = models.BooleanField(default=False, verbose_name='店内飲食')
+    has_takeout = models.BooleanField(default=False, verbose_name='持ち帰り')
     is_valid =\
         models.BooleanField(
             default=True,
             verbose_name='有効フラグ',
             help_text='結果に含める場合はこのフラグを立ててください。',
         )
+
+    class Meta:
+        verbose_name = verbose_name_plural = '店舗'
 
     def __str__(self):
         return self.name
