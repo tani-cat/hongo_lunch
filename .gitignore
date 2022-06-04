@@ -1,7 +1,7 @@
 __pycache__
 .DS_Store
 .venv/
-local.py
+secret_key.py
 db.sqlite3
 local_requirements.txt
 staticfiles/
