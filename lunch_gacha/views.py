@@ -6,7 +6,8 @@ import requests
 
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpResponseServerError
+from django.db.models import Q
+from django.http import HttpResponseServerError
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
@@ -78,19 +79,28 @@ class GachaView(generic.FormView):
     def post(self, request, **kwargs):
         form = self.form_class(request.POST)
         if not form.is_valid():
-            raise HttpResponseBadRequest()
+            # 対象がない
+            messages.error(request, '条件に一致するランチが見つかりませんでした。')
+            return self.get(request, **kwargs)
 
         conditions = form.cleaned_data
 
         search_key = {
             'is_valid': True,
         }
+        sale_style_filter = Q()
+        if conditions['sale_style']:
+            if 'has_eatin' in conditions['sale_style']:
+                sale_style_filter |= Q(has_eatin=True)
+            if 'has_takeout' in conditions['sale_style']:
+                sale_style_filter |= Q(has_takeout=True)
+
         if conditions['district']:
             search_key['district__in'] = conditions['district']
         if conditions['genre']:
             search_key['genre__in'] = conditions['genre']
 
-        queryset = models.LunchPlace.objects.filter(**search_key)
+        queryset = models.LunchPlace.objects.filter(sale_style_filter, **search_key)
         if queryset.count() == 0:
             # 対象がない
             messages.error(request, '条件に一致するランチが見つかりませんでした。')

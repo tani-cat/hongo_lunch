@@ -33,6 +33,19 @@ class GachaForm(forms.Form):
         required=False,
     )
 
+    SALE_STYLE_CHOICES = (
+        ('has_eatin', 'イートイン'),
+        ('has_takeout', 'テイクアウト'),
+    )
+
+    sale_style = forms.MultipleChoiceField(
+        label='販売形式',
+        choices=SALE_STYLE_CHOICES,
+        widget=CustomCheckboxSelectMultiple,
+        required=True,
+        initial=('has_eatin', 'has_takeout'),
+    )
+
     genre = forms.ModelMultipleChoiceField(
         label='ジャンル',
         queryset=models.LunchGenre.objects.annotate(
