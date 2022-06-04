@@ -20,10 +20,6 @@ class GachaForm(forms.Form):
     """ガチャを引くフォーム
 
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for myField in self.fields:
-            self.fields[myField].widget.attrs['class'] = 'custom-checkbox'
 
     district = forms.ModelMultipleChoiceField(
         label='地区',

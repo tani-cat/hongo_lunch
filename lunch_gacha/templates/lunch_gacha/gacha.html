@@ -3,6 +3,7 @@
 {% block title %}ガチャ{% endblock %}
 {% block meta %}
 <link href="{% static 'css/checkbox.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/select_all.js' %}" charset="utf-8"></script>
 {% endblock %}
 {% block content %}
 <div class="py-4 container text-center">
@@ -20,9 +21,12 @@
       </div>
       <hr>
       <fieldset>
-        <div class="card">
+        <div class="card" id="cardDistrict">
           <div class="card-header">
-            地区を選ぶ
+            地区を選ぶ　
+            <button type="button" id="selectDistrict" class="btn btn-sm btn-outline-secondary selectAllButton">
+              全選択
+            </button>
           </div>
           <div class="card-body">
             <p>※選択しない場合は全候補からピックアップします</p>
@@ -37,9 +41,12 @@
             {{ form.sale_style }}
           </div>
         </div>
-        <div class="card">
+        <div class="card" id="cardGenre">
           <div class="card-header">
-            ジャンルを選ぶ
+            ジャンルを選ぶ　
+            <button type="button" id="selectGenre" class="btn btn-sm btn-outline-secondary selectAllButton">
+              全選択
+            </button>
           </div>
           <div class="card-body">
             <p>※選択しない場合は全候補からピックアップします</p>
