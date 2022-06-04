@@ -2,7 +2,7 @@ psycopg2-binary
 gunicorn
 requests
 whitenoise
-Django==3.2.8
+Django==3.2.13
 dj-database-url==0.5.0
 django-bootstrap4==3.0.1
 django-heroku==0.3.1
