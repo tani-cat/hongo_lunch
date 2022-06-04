@@ -7,13 +7,18 @@
   <h2 class="text-center">出力一覧</h2>
   <p class="text-center"><a href="{% url 'lunch_gacha:gacha' %}">ガチャ画面へ戻る</a></p>
   <div class="row">
-    <div class="col-lg-8 offset-lg-2">
+    <div class="col-lg-10 offset-lg-1">
       <table class="table table-sm table-striped text-center">
         <thead>
           <tr>
-            <td>地区</td>
-            <td>店名</td>
-            <td>ジャンル(複数)</td>
+            <td rowspan="2">地区</td>
+            <td rowspan="2">店名</td>
+            <td colspan="2">販売形式</td>
+            <td rowspan="2">ジャンル(複数)</td>
+          </tr>
+          <tr>
+            <td>イートイン</td>
+            <td>テイクアウト</td>
           </tr>
         </thead>
         <tbody>
@@ -21,6 +26,20 @@
             <tr>
               <td>{{ obj.district }}</td>
               <td>{{ obj.name }}</td>
+              <td>
+                {% if obj.has_eatin %}
+                <svg width="16" height="16">
+                  <use href="{% static 'img/check-circle.svg' %}#check-circle"></use>
+                </svg>
+                {% endif %}
+              </td>
+              <td>
+                {% if obj.has_takeout %}
+                <svg width="16" height="16">
+                  <use href="{% static 'img/check-circle.svg' %}#check-circle"></use>
+                </svg>
+                {% endif %}
+              </td>
               <td>{{ obj.genre|list_all }}</td>
             </tr>
           {% endfor %}

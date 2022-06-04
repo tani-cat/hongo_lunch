@@ -24,6 +24,7 @@ handler500 = 'lunch_gacha.views.notice_slack_handler500'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('lunch_gacha.urls')),
+    path('release/', include('release_manager.urls')),
 ]
 
 
