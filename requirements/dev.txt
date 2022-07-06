@@ -1,4 +1,4 @@
 requests
-Django==3.2.13
+Django==3.2.14
 django-bootstrap4==3.0.1
 django-debug-toolbar
